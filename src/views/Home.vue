@@ -1,16 +1,27 @@
 <template>
-  <div style="background: rgb(238,238,238)">
+  <div>
     <div id ='app' class="home">
-      <div id="apps" style="width: 100%">
+      <div  id="apps" class="home1" style="width: 100%;" v-show="errorpage == true">
         <div id="hh">
           <p style="text-align: center;color: #fff;font-size: 24px;">
             水果之王
           </p>
-          <p style="text-align: center;margin-top: 15px;line-height: 18px;color: #fff;font-size: 16px;padding: 10px 20px;">
-            我往也不能忘哈哈哈都好都好都好就将计就计
+          <p style="text-align: center;margin-top: 5px;line-height: 24px;color: #fff;font-size: 16px;padding: 10px 20px;text-align: left">
+            林夕为梦，世间为梦。林夕因为打开“起点”而来到了，一个特殊的空间，所以故事就从这个空间开始，穿越小说！写的是自己的梦，所以这是写给自己的！
+            林夕为梦，世间为梦。林夕因为打开“起点”而来到了，一个特殊的空间，所以故事就从这个空间开始，穿越小说！写的是自己的梦，所以这是写给自己的！
+            林夕为梦，世间为梦。林夕因为打开“起点”而来到了，一个特殊的空间，所以故事就从这个空间开始，穿越小说！写的是自己的梦，所以这是写给自己的！
           </p>
         </div>
 
+      </div>
+      <div style="display: flex;flex-direction: column;align-items: center;margin-top: 60px;" v-show="errorpage == false" >
+        <img style="height: 160px;width: 160px;" src="../assets/sb.png"/>
+        <p style="text-align: center;margin-top: 10px;font-size: 18px;color:#999;">
+          数据加载失败
+        </p>
+        <p style="text-align: center;margin-top: 10px;font-size: 18px;color:#999;">
+          网络或服务器延迟，请稍后再试
+        </p>
       </div>
     </div>
     <div id="app1" style="display: none" class="home">
@@ -74,13 +85,10 @@ export default {
   name: "home",
   data(){
     return{
-      banner:[],
-      topbottom:[],
-      horns:[],
-      middbuttons:[],
-      bottombuttons:[],
-      show1:false,
-      heights:660
+      bookpage:true,
+      errorpage:true,
+      heights:660,
+      codeparamts:[],
     }
   },
   components: {
@@ -109,28 +117,38 @@ export default {
       let self = this
       this.$dialog.loading.open("获取中...")
       let params = {
-        'orderno': localStorage.getItem("orderno"),
         'page': 1,
         'pagemax': 30
       }
       this.$http
-        .get(
-          "/fsdmvc/top",
-          { emulateJSON: true , headers: { "Content-Type": "multipart/form-data","token":localStorage.getItem("token")}}
+        .post(
+          "/Qrcode/insertManual",
+          { emulateJSON: true , headers: { "Content-Type": "multipart/form-data"}}
         )
         .then(
           function(res) {
             this.$dialog.loading.close()
-            console.log(res.body)
-            if(res.body.status==true){
-              this.banner = res.body.data.topads
-              this.topbottom = res.body.data.upbuttons
-              this.horns = res.body.data.horns
-              this.middbuttons = res.body.data.middbuttons
-              this.bottombuttons = res.body.data.bottombuttons
-              localStorage.setItem("bottombuttons", this.bottombuttons)
+            alert(res.body.code)
+            if(res.body.code == '00000'){
+              this.errorpage = true
+              let url = document.location.toString()
+              url = 'http://140.143.97.150:8888/Qrcode/Index?QrcodrId=DDB@GA05F7L@7A0G@BGE7GB6GFGAL6FB&ShopId=B141ED0F02742108A6DA5F1606587092&AnsBookNum=MjE5'
+              let arrUrl = url.split('?')
+              let paramts = arrUrl[1]
+              params = paramts.split('&')
+              paramts.forEach(item => {
+                this.codeparamts.push(item.split('='))
+              })
+              console.error(this.codeparamts)
+              // this.banner = res.body.data.topads
+              // this.topbottom = res.body.data.upbuttons
+              // this.horns = res.body.data.horns
+              // this.middbuttons = res.body.data.middbuttons
+              // this.bottombuttons = res.body.data.bottombuttons
+              // localStorage.setItem("bottombuttons", this.bottombuttons)
             }else{
-              alert(res.body.msg);
+              this.errorpage = false
+              // alert(res.body.msg);
             }
 
           },
@@ -143,10 +161,14 @@ export default {
   mounted: function () {
     this.heights = screen.height
     document.getElementById('apps').style.height = screen.height+'px'
-    document.getElementById('hh').style.paddingTop = screen.height/2-100+'px'
+    document.getElementById('hh').style.paddingTop = screen.height/2-140+'px'
+    let url = document.location.toString()
+    url = 'http://140.143.97.150:8888/Qrcode/Index?QrcodrId=DDB@GA05F7L@7A0G@BGE7GB6GFGAL6FB&ShopId=B141ED0F02742108A6DA5F1606587092&AnsBookNum=MjE5'
+    // 140.143.97.150:8888/Qrcode/selectByPrimaryKey?QrcodrId=D@CCDA@0BA5M065MLG0LBLGLEB@L@5A2&ShopId=B141ED0F02742108A6DA5F1606587092&AnsBookNum=MzQw
     // document.getElementById('apps').style.width = screen.width+'px'
     // alert(screen.height)
-    // this.getData()
+    this.getData()
+    //https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1781525732,1543059578&fm=26&gp=0.jpg
   }
 };
 </script>
@@ -154,8 +176,10 @@ export default {
 
 .home {
   width: 100%;
-  background-color: #ffffff;
-  background-image: url(https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2258569100,4281188072&fm=26&gp=0.jpg);
+
+}
+.home1{
+  background-image: url(https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1866486544,617055729&fm=26&gp=0.jpg);
   background-repeat:no-repeat;
   background-position:top;
   background-attachment:fixed;
