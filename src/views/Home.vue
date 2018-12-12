@@ -1,6 +1,19 @@
 <template>
   <div style="background: rgb(238,238,238)">
-    <div id="app" class="home">
+    <div id ='app' class="home">
+      <div id="apps" style="width: 100%">
+        <div id="hh">
+          <p style="text-align: center;color: #fff;font-size: 24px;">
+            水果之王
+          </p>
+          <p style="text-align: center;margin-top: 15px;line-height: 18px;color: #fff;font-size: 16px;padding: 10px 20px;">
+            我往也不能忘哈哈哈都好都好都好就将计就计
+          </p>
+        </div>
+
+      </div>
+    </div>
+    <div id="app1" style="display: none" class="home">
       <yd-slider autoplay="3000"  class="home-img">
         <yd-slider-item >
           <a>
@@ -66,7 +79,8 @@ export default {
       horns:[],
       middbuttons:[],
       bottombuttons:[],
-      show1:false
+      show1:false,
+      heights:660
     }
   },
   components: {
@@ -127,16 +141,24 @@ export default {
     },
   },
   mounted: function () {
+    this.heights = screen.height
+    document.getElementById('apps').style.height = screen.height+'px'
+    document.getElementById('hh').style.paddingTop = screen.height/2-100+'px'
+    // document.getElementById('apps').style.width = screen.width+'px'
+    // alert(screen.height)
     // this.getData()
   }
 };
 </script>
 <style scoped>
 
-.home-img {
+.home {
   width: 100%;
-  height: 16rem;
   background-color: #ffffff;
+  background-image: url(https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2258569100,4281188072&fm=26&gp=0.jpg);
+  background-repeat:no-repeat;
+  background-position:top;
+  background-attachment:fixed;
 }
 
 .home-img img{
