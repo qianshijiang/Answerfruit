@@ -111,7 +111,107 @@ export default {
       }
     },
     gostate(){
-      this.$router.push({path: '/MyApply'})
+      let url = document.location.toString()
+      url = '140.143.97.150:8889/Qrcode/Index?QrcodrId=1A52528FE4FD961894F35CBB0260A56B&ShopId=B141ED0F02742108A6DA5F1606587092&AnsBookNum=1'
+      let arrUrl = url.split('?')
+      let paramt = []
+      let paramts = {}
+      paramts = arrUrl[1]
+      paramts = paramts.split('&')
+      paramt = paramts
+      paramt.forEach(item => {
+        this.codeparamts.push(item.split('='))
+      })
+      console.error(this.codeparamts[0][1])
+      this.getData1()
+      this.getData2()
+      this.getData3()
+    },
+    getData1() {
+      let self = this
+      this.$dialog.loading.open("获取中...")
+      let paramts = {id:this.codeparamts[0][1]}
+
+      this.$http
+        .post(
+          "/Qrcode/selectByPrimaryKey",
+          { emulateJSON: true ,paramts, headers: { "Content-Type": "multipart/form-data"}}
+        )
+        .then(
+          function(res) {
+            this.$dialog.loading.close()
+            console.log(res)
+            if(res.body.code == '00000'){
+              this.errorpage = true
+              let url = document.location.toString()
+            }else{
+              this.errorpage = false
+              // alert(res.body.msg);
+            }
+
+          },
+          function(res) {
+            console.log(res)
+          }
+        );
+    },
+    getData2() {
+      let self = this
+      this.$dialog.loading.open("获取中...")
+      let params = {
+        id: this.codeparamts[1][1],
+      }
+      this.$http
+        .post(
+          "/Qrcode//Shop/selectByKey",
+          { emulateJSON: true ,params, headers: { "Content-Type": "multipart/form-data"}}
+        )
+        .then(
+          function(res) {
+            this.$dialog.loading.close()
+            console.log(res)
+            if(res.body.code == '00000'){
+              this.errorpage = true
+              let url = document.location.toString()
+            }else{
+              this.errorpage = false
+              // alert(res.body.msg);
+            }
+
+          },
+          function(res) {
+            console.log(res)
+          }
+        );
+    },
+    getData3() {
+      let self = this
+      this.$dialog.loading.open("获取中...")
+      let params = {
+        ansNum: this.codeparamts[2][1],
+      }
+      this.$http
+        .post(
+          "/Qrcode/Answerbook/findByAnsNum",
+          { emulateJSON: true ,params, headers: { "Content-Type": "multipart/form-data"}}
+        )
+        .then(
+          function(res) {
+            this.$dialog.loading.close()
+            console.log(res)
+            if(res.body.code == '00000'){
+              this.errorpage = true
+              let url = document.location.toString()
+            }else{
+              this.errorpage = false
+              // alert(res.body.msg);
+            }
+
+          },
+          function(res) {
+            console.log(res)
+          }
+        );
     },
     getData() {
       let self = this
@@ -134,12 +234,14 @@ export default {
               let url = document.location.toString()
               url = 'http://140.143.97.150:8888/Qrcode/Index?QrcodrId=DDB@GA05F7L@7A0G@BGE7GB6GFGAL6FB&ShopId=B141ED0F02742108A6DA5F1606587092&AnsBookNum=MjE5'
               let arrUrl = url.split('?')
+              let paramt= []
               let paramts = arrUrl[1]
               params = paramts.split('&')
-              paramts.forEach(item => {
+              paramt = params
+              paramt.forEach(item => {
                 this.codeparamts.push(item.split('='))
               })
-              console.error(this.codeparamts)
+              // console.error(this.codeparamts)
               // this.banner = res.body.data.topads
               // this.topbottom = res.body.data.upbuttons
               // this.horns = res.body.data.horns
@@ -167,7 +269,8 @@ export default {
     // 140.143.97.150:8888/Qrcode/selectByPrimaryKey?QrcodrId=D@CCDA@0BA5M065MLG0LBLGLEB@L@5A2&ShopId=B141ED0F02742108A6DA5F1606587092&AnsBookNum=MzQw
     // document.getElementById('apps').style.width = screen.width+'px'
     // alert(screen.height)
-    this.getData()
+    // this.getData()
+    this.gostate()
     //https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1781525732,1543059578&fm=26&gp=0.jpg
   }
 };
