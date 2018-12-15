@@ -130,12 +130,12 @@ export default {
     getData1() {
       let self = this
       this.$dialog.loading.open("获取中...")
-      let paramts = {id:this.codeparamts[0][1]}
+      let params = {id:this.codeparamts[0][1]}
 
       this.$http
         .post(
           "/Qrcode/selectByPrimaryKey",
-          { emulateJSON: true ,paramts, headers: { "Content-Type": "multipart/form-data"}}
+          { emulateJSON: true ,params, headers: { "Content-Type": "multipart/form-data"}}
         )
         .then(
           function(res) {
