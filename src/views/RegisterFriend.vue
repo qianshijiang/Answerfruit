@@ -1,7 +1,7 @@
 <template>
   <div class="register">
     <div class="home-img">
-      <img src="../assets/bg.png">
+      <!--<img src="../assets/bg.png">-->
     </div>
      <div class="register-box">
         <yd-cell-group>

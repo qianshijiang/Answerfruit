@@ -1,17 +1,30 @@
 <template>
   <div>
     <div id ='app' class="home">
-      <div  id="apps" class="home1" style="width: 100%;" v-show="errorpage == true">
-        <div id="hh">
-          <p style="text-align: center;color: #fff;font-size: 24px;">
-            水果之王
-          </p>
-          <p style="text-align: center;margin-top: 5px;line-height: 24px;color: #fff;font-size: 16px;padding: 10px 20px;text-align: left">
-            林夕为梦，世间为梦。林夕因为打开“起点”而来到了，一个特殊的空间，所以故事就从这个空间开始，穿越小说！写的是自己的梦，所以这是写给自己的！
-            林夕为梦，世间为梦。林夕因为打开“起点”而来到了，一个特殊的空间，所以故事就从这个空间开始，穿越小说！写的是自己的梦，所以这是写给自己的！
-            林夕为梦，世间为梦。林夕因为打开“起点”而来到了，一个特殊的空间，所以故事就从这个空间开始，穿越小说！写的是自己的梦，所以这是写给自己的！
-          </p>
+      <div     v-show="errorpage == true">
+        <img :src="imgurl" id="apps" style="position: absolute;top:0;width: 100%;z-index:-1"  >
+        <div id="hh" >
+          <div v-if="anflag == true">
+            <p style="text-align: center;color: #fff;font-size: 24px;">
+              答案二维码
+            </p>
+            <p style="text-align: center;margin-top: 10px;line-height: 32px;color: #fff;font-size: 18px;padding: 10px 20px;text-align: left">
+              {{answer.content}}
+            </p>
+          </div>
+          <div v-if="anflag == false" style="display: flex;flex-direction: column;justify-content: center;align-items: center">
+            <p style="text-align: left;color: #fff;font-size: 22px;line-height: 36px;">
+            二维码已失效
+            </p>
+            <p style="text-align: left;color: #fff;font-size: 22px;line-height: 36px;">
+              店铺：{{shorp.name}}
+            </p>
+            <p style="text-align: left;color: #fff;font-size: 22px;line-height: 36px;">
+              号码：{{shorp.orderPhone}}
+            </p>
+          </div>
         </div>
+
 
       </div>
       <div style="display: flex;flex-direction: column;align-items: center;margin-top: 60px;" v-show="errorpage == false" >
@@ -42,9 +55,6 @@
           </a>
         </yd-slider-item>
       </yd-slider>
-      <!--<div class="home-img">-->
-        <!--<img src="../assets/bg.png"/>-->
-      <!--</div>-->
       <div style="width: 96%;margin: auto;margin-top: 15px;background: #fff;border-radius: 4px;border: 1px solid #e0e0e0;">
         <div style="width: 96%;margin: auto;display: flex;flex-direction: row;padding: 15px 0;border-bottom: 1px solid #e0e0e0;">
           <img style="height: 80px;width: 60px;" src="http://img2.imgtn.bdimg.com/it/u=3799029851,2113947919&fm=26&gp=0.jpg">
@@ -89,6 +99,11 @@ export default {
       errorpage:true,
       heights:660,
       codeparamts:[],
+      answer:{},
+      shorp:{},
+      anflag:true,
+      imgs:0,
+      imgurl:'',
     }
   },
   components: {
@@ -112,7 +127,8 @@ export default {
     },
     gostate(){
       let url = document.location.toString()
-      url = '140.143.97.150:8889/Qrcode/Index?QrcodrId=1A52528FE4FD961894F35CBB0260A56B&ShopId=B141ED0F02742108A6DA5F1606587092&AnsBookNum=1'
+      alert(url)
+      // url = '140.143.97.150:8889/Qrcode/Index?QrcodrId=13229B273E22E5E426B8DC9917030929&ShopId=B141ED0F02742108A6DA5F1606587092&AnsBookNum=1'
       let arrUrl = url.split('?')
       let paramt = []
       let paramts = {}
@@ -122,26 +138,33 @@ export default {
       paramt.forEach(item => {
         this.codeparamts.push(item.split('='))
       })
-      console.error(this.codeparamts[0][1])
+      // console.error(this.codeparamts[0][1])
       this.getData1()
-      this.getData2()
-      this.getData3()
+
     },
     getData1() {
       let self = this
       this.$dialog.loading.open("获取中...")
-      let params = {id:this.codeparamts[0][1]}
+      let param = {id:this.codeparamts[0][1]}
 
       this.$http
         .post(
           "/Qrcode/selectByPrimaryKey",
-          { emulateJSON: true ,params, headers: { "Content-Type": "multipart/form-data"}}
+          { emulateJSON: true ,param, headers: { "Content-Type": "multipart/form-data"}}
         )
         .then(
           function(res) {
             this.$dialog.loading.close()
             console.log(res)
+
+
             if(res.body.code == '00000'){
+              if(res.body.data.scanTimes>10){
+                this.anflag = false
+                this.getData2()
+              }else {
+                this.getData3()
+              }
               this.errorpage = true
               let url = document.location.toString()
             }else{
@@ -158,19 +181,20 @@ export default {
     getData2() {
       let self = this
       this.$dialog.loading.open("获取中...")
-      let params = {
-        id: this.codeparamts[1][1],
-      }
+      let id = this.codeparamts[1][1]
+      // id = JSON.parse(id)
+      let param = {id:id}
       this.$http
         .post(
-          "/Qrcode//Shop/selectByKey",
-          { emulateJSON: true ,params, headers: { "Content-Type": "multipart/form-data"}}
+          "/Qrcode/Shop/selectByKey",
+          { emulateJSON: true ,param,headers:{"Content-Type":"multipart/form-data"}}
         )
         .then(
           function(res) {
             this.$dialog.loading.close()
             console.log(res)
             if(res.body.code == '00000'){
+              this.shorp = res.body.data
               this.errorpage = true
               let url = document.location.toString()
             }else{
@@ -187,21 +211,24 @@ export default {
     getData3() {
       let self = this
       this.$dialog.loading.open("获取中...")
-      let params = {
+      let param = {
         ansNum: this.codeparamts[2][1],
       }
       this.$http
         .post(
           "/Qrcode/Answerbook/findByAnsNum",
-          { emulateJSON: true ,params, headers: { "Content-Type": "multipart/form-data"}}
+          { emulateJSON: true ,param, headers: { "Content-Type": "multipart/form-data"}}
         )
         .then(
           function(res) {
+            this.getData2()
             this.$dialog.loading.close()
             console.log(res)
             if(res.body.code == '00000'){
               this.errorpage = true
-              let url = document.location.toString()
+              this.anflag = true
+              this.answer = res.body.data
+              // let url = document.location.toString()
             }else{
               this.errorpage = false
               // alert(res.body.msg);
@@ -228,7 +255,6 @@ export default {
         .then(
           function(res) {
             this.$dialog.loading.close()
-            alert(res.body.code)
             if(res.body.code == '00000'){
               this.errorpage = true
               let url = document.location.toString()
@@ -264,14 +290,10 @@ export default {
     this.heights = screen.height
     document.getElementById('apps').style.height = screen.height+'px'
     document.getElementById('hh').style.paddingTop = screen.height/2-140+'px'
-    let url = document.location.toString()
-    url = 'http://140.143.97.150:8888/Qrcode/Index?QrcodrId=DDB@GA05F7L@7A0G@BGE7GB6GFGAL6FB&ShopId=B141ED0F02742108A6DA5F1606587092&AnsBookNum=MjE5'
-    // 140.143.97.150:8888/Qrcode/selectByPrimaryKey?QrcodrId=D@CCDA@0BA5M065MLG0LBLGLEB@L@5A2&ShopId=B141ED0F02742108A6DA5F1606587092&AnsBookNum=MzQw
-    // document.getElementById('apps').style.width = screen.width+'px'
-    // alert(screen.height)
+    this.imgs = parseInt(9*Math.random())
+    this.imgurl = '../../static/img/'+this.imgs+'.jpg'
     // this.getData()
     this.gostate()
-    //https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1781525732,1543059578&fm=26&gp=0.jpg
   }
 };
 </script>
@@ -282,7 +304,7 @@ export default {
 
 }
 .home1{
-  background-image: url(https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1866486544,617055729&fm=26&gp=0.jpg);
+  width: 100%;
   background-repeat:no-repeat;
   background-position:top;
   background-attachment:fixed;
