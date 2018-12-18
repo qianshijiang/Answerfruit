@@ -2,14 +2,14 @@
   <div>
     <div id ='app' class="home">
       <div     v-show="errorpage == true">
-        <img :src="imgurl" id="apps" style="position: absolute;top:0;width: 100%;z-index:-1"  >
+        <img :src="imgurl" id="apps" style="position: fixed;top:0;width: 100%;z-index:-1"  >
         <div id="hh" >
           <div v-if="anflag == true">
-            <p style="text-align: center;color: #fff;font-size: 24px;">
+            <p style="text-align: center;color: #fff;font-size: 18px;">
               答案二维码
             </p>
-            <p style="text-align: center;margin-top: 10px;line-height: 32px;color: #fff;font-size: 18px;padding: 10px 20px;text-align: left">
-              {{answer.content}}
+            <p style="text-align: center;margin-top: 10px;line-height: 32px;color: #fff;font-size: 24px;padding: 10px 20px;">
+             {{answer.content}}
             </p>
           </div>
           <div v-if="anflag == false" style="display: flex;flex-direction: column;justify-content: center;align-items: center">
@@ -127,8 +127,8 @@ export default {
     },
     gostate(){
       let url = document.location.toString()
-      alert(url)
-      // url = '140.143.97.150:8889/Qrcode/Index?QrcodrId=13229B273E22E5E426B8DC9917030929&ShopId=B141ED0F02742108A6DA5F1606587092&AnsBookNum=1'
+      // alert(url)
+      // url = 'http://132.232.240.177:8889/Index/Indexpage?QrcodrId=BCBC9E613BFCBDBD00C681E7FB10BFC4&ShopId=B141ED0F02742108A6DA5F1606587092&AnsBookNum=15#/'
       let arrUrl = url.split('?')
       let paramt = []
       let paramts = {}
@@ -139,6 +139,10 @@ export default {
         this.codeparamts.push(item.split('='))
       })
       // console.error(this.codeparamts[0][1])
+      // alert(this.codeparamts[2][1])
+      // let ansnum = this.codeparamts[2][1]
+      // ansnum = ansnum.substr(0,ansnum.length-2)
+      // alert(ansnum)
       this.getData1()
 
     },
@@ -159,7 +163,7 @@ export default {
 
 
             if(res.body.code == '00000'){
-              if(res.body.data.scanTimes>10){
+              if(res.body.data.scanTimes>3){
                 this.anflag = false
                 this.getData2()
               }else {
@@ -211,8 +215,12 @@ export default {
     getData3() {
       let self = this
       this.$dialog.loading.open("获取中...")
+      let ansnum = this.codeparamts[2][1]
+      if(this.codeparamts.length == 3){
+        ansnum = ansnum.substr(0,ansnum.length-2)
+      }
       let param = {
-        ansNum: this.codeparamts[2][1],
+        ansNum: ansnum,
       }
       this.$http
         .post(
@@ -228,6 +236,7 @@ export default {
               this.errorpage = true
               this.anflag = true
               this.answer = res.body.data
+
               // let url = document.location.toString()
             }else{
               this.errorpage = false
@@ -258,7 +267,7 @@ export default {
             if(res.body.code == '00000'){
               this.errorpage = true
               let url = document.location.toString()
-              url = 'http://140.143.97.150:8888/Qrcode/Index?QrcodrId=DDB@GA05F7L@7A0G@BGE7GB6GFGAL6FB&ShopId=B141ED0F02742108A6DA5F1606587092&AnsBookNum=MjE5'
+              // url = '140.143.97.150:8889/Qrcode/Index?QrcodrId=13229B273E22E5E426B8DC9917030929&ShopId=B141ED0F02742108A6DA5F1606587092&AnsBookNum=1'
               let arrUrl = url.split('?')
               let paramt= []
               let paramts = arrUrl[1]
@@ -267,6 +276,7 @@ export default {
               paramt.forEach(item => {
                 this.codeparamts.push(item.split('='))
               })
+              this.getData1()
               // console.error(this.codeparamts)
               // this.banner = res.body.data.topads
               // this.topbottom = res.body.data.upbuttons
@@ -274,6 +284,34 @@ export default {
               // this.middbuttons = res.body.data.middbuttons
               // this.bottombuttons = res.body.data.bottombuttons
               // localStorage.setItem("bottombuttons", this.bottombuttons)
+            }else{
+              this.errorpage = false
+              // alert(res.body.msg);
+            }
+
+          },
+          function(res) {
+            console.log(res)
+          }
+        );
+    },
+    getData4() {
+      let self = this
+      this.$dialog.loading.open("获取中...")
+      let params = {
+        'page': 1,
+        'pagemax': 30
+      }
+      this.$http
+        .post(
+          "/Qrcode/insertManual",
+          { emulateJSON: true , headers: { "Content-Type": "multipart/form-data"}}
+        )
+        .then(
+          function(res) {
+            this.$dialog.loading.close()
+            if(res.body.code == '00000'){
+
             }else{
               this.errorpage = false
               // alert(res.body.msg);
