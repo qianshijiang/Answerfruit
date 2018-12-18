@@ -127,7 +127,7 @@ export default {
     },
     gostate(){
       let url = document.location.toString()
-      alert(url)
+      console.log(url)
       // url = '140.143.97.150:8889/Qrcode/Index?QrcodrId=13229B273E22E5E426B8DC9917030929&ShopId=B141ED0F02742108A6DA5F1606587092&AnsBookNum=1'
       let arrUrl = url.split('?')
       let paramt = []
