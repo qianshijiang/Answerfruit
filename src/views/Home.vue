@@ -61,6 +61,7 @@
 
 <script>
 import FooterBar from "@/components/FooterBar.vue";
+import Bgmusic from '@/components/Bgmusic.vue'
 export default {
   name: "home",
   data(){
