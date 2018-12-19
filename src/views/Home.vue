@@ -163,7 +163,7 @@ export default {
 
 
             if(res.body.code == '00000'){
-              if(res.body.data.scanTimes>3){
+              if(res.body.data.scanTimes > 1){
                 this.anflag = false
                 this.getData2()
               }else {
