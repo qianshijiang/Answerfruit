@@ -1,16 +1,12 @@
 <template>
   <div class="music">
-    <audio src="../../static/img/1.mp3" id="Jaudio" controls="controls"  class="media-audio"  preload loop="loop" hidden="false"></audio>
+    <audio :src={{musicsrc}} id="Jaudio" class="media-audio"  preload loop="loop" hidden="false"></audio>
     <div class="icon"></div>
   </div>
 </template>
-
-<script type="text/babel">
-  import Vue from "vue";
-  import { TabBar, TabBarItem } from "vue-ydui/dist/lib.rem/tabbar";
-  Vue.component(TabBar.name, TabBar);
-  Vue.component(TabBarItem.name, TabBarItem);
-  export default {
+<script>
+  /* eslint-disable */
+  export default{
     data() {
       return {}
     },
@@ -66,30 +62,31 @@
       this.icon = window.document.querySelector('.icon');
       this.audioAutoPlay();
     }
-  };
+  }
 </script>
-<style scoped>
+<style  rel="stylesheet/scss" lang="scss">
   .music {
     position:fixed;
     z-index:1000;
     top:50px;
     right:20px;
-  .icon{
-    width:60px;
-    height:50px;
-    background:url('https://pic.51zhangdan.com/u51/storage/dd/df9e5296-1fa9-f3c4-6151-afeab9c2f34d.png') no-repeat;
-    background-size: 100%;
-  .play{
-     animation: 4s linear 0s normal none infinite rotate;
-   // animation-fill-mode:forwards;
-   // animation-play-state: running;
-   }
-  .stop{
-   // animation: 4s linear 0s normal none infinite rotate;
-   // animation-fill-mode:forwards;
-   // animation-play-state: paused;
-   }
-  }
+
+    .icon{
+      width:60px;
+      height:50px;
+      background:url('https://pic.51zhangdan.com/u51/storage/dd/df9e5296-1fa9-f3c4-6151-afeab9c2f34d.png') no-repeat;
+      background-size: 100%;
+      &.play{
+        animation: 4s linear 0s normal none infinite rotate;
+        // animation-fill-mode:forwards;
+        // animation-play-state: running;
+      }
+      &.stop{
+        // animation: 4s linear 0s normal none infinite rotate;
+        // animation-fill-mode:forwards;
+        // animation-play-state: paused;
+      }
+    }
   }
 
   @keyframes rotate{
@@ -97,5 +94,3 @@
     to{transform:rotate(360deg)}
   }
 </style>
-
-

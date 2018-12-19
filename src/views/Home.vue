@@ -48,7 +48,7 @@
       </div>
     </div>
     <!--<template>-->
-      <!--<bgmusic :musicsrc='musicbg'></bgmusic>-->
+      <Bgmusic :musicsrc='musicbg'></Bgmusic>
     <!--</template>-->
       <!--<audio id="audio"   controls="controls" autoplay="autoplay" preload="auto">
       <source src="/../../static/img/1.mp3" type="audio/ogg">
@@ -61,7 +61,7 @@
 
 <script>
 import FooterBar from "@/components/FooterBar.vue";
-// import Bgmusic from '@/components/Bgmusic.vue'
+import Bgmusic from '@/components/Bgmusic.vue'
 export default {
   name: "home",
   data(){
@@ -79,7 +79,8 @@ export default {
     }
   },
   components: {
-    FooterBar
+    FooterBar,
+    Bgmusic
   },
   methods:{
     golink(item){
