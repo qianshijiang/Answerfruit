@@ -1,6 +1,6 @@
 <template>
   <div class="music">
-    <audio src="../../static/img/1.mp3" id="Jaudio" controls="controls"  class="media-audio"  preload loop="loop" hidden="false"></audio>
+    <audio :src="musicsrc" id="Jaudio" controls="controls"  class="media-audio" autoplay="autoplay"  preload loop="loop" hidden="false"></audio>
     <div class="icon"></div>
   </div>
 </template>
