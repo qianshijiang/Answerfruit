@@ -15,11 +15,11 @@
           </div>
           <div v-if="anflag == false" style="display: flex;flex-direction: column;justify-content: center;align-items: center">
             <p style="text-align: left;color: #fff;font-size: 22px;line-height: 36px;">
-            二维码已失效
-            </p>
-            <p style="text-align: left;color: #fff;font-size: 22px;line-height: 36px;">
               答案二维码
               <!--店铺：{{shorp.name}}-->
+            </p>
+            <p style="text-align: left;color: #fff;font-size: 22px;line-height: 36px;">
+            二维码已失效
             </p>
             <p style="text-align: left;color: #fff;font-size: 22px;line-height: 36px;">
               订购热线：{{shorp.orderPhone}}
@@ -38,11 +38,17 @@
         </p>
       </div>
     </div>
-    <audio id="audio"   controls="controls" autoplay="autoplay" preload="auto">
+    <div>
+      <div @click="changeOn" :class="isOff?'isOff':'isOn'">
+
+      </div>
+      <audio id="audio" :src="require('/../../static/img/1.mp3')"></audio>
+    </div>
+      <!--<audio id="audio"   controls="controls" autoplay="autoplay" preload="auto">
       <source src="/../../static/img/1.mp3" type="audio/ogg">
       <source src="../../static/img/1.mp3" type="audio/mpeg">
       Your browser does not support the audio element.
-    </audio>
+    </audio>-->
   </div>
 
 </template>
@@ -62,6 +68,7 @@ export default {
       anflag:true,
       imgs:0,
       imgurl:'',
+      isOff:true //控制是否自动播放
     }
   },
   components: {
@@ -254,17 +261,31 @@ export default {
           }
         );
     },
+    changeOn(){
+      let oAudio = document.querySelector("#audio");
+      if(this.isOff){
+        oAudio.play();//让音频文件开始播放
+      }else{
+        oAudio.pause();//让音频文件暂停播放
+      }
+      this.isOff = !this.isOff;
+    },
+    audioAutoPlay() {
+      let audio = document.getElementById('audio');
+      this.isOff = false;
+      audio.play();
+      document.removeEventListener('touchstart',this.audioAutoPlay);
+    },
   },
   mounted: function () {
-    // alert(d)
-    // document.addEventListener('touchstart', function () {
-    //   function audioAutoPlay() {
-    //     var audio = document.getElementById('audio')
-    //     audio.play()
-    //   }
-    //   audioAutoPlay()
-    // })
-
+    // 自动播放音乐效果，解决微信自动播放问题
+    document.addEventListener('touchstart',this.audioAutoPlay,false);
+    document.addEventListener('WeixinJSBridgeReady', this.audioAutoPlay,false);
+    let oAudio = document.querySelector("#audio");
+    oAudio.onended = function () {//播放完毕，重新循环播放
+      oAudio.load();
+      oAudio.play();
+    }
 
     this.heights = screen.height
     document.getElementById('apps').style.height = screen.height+'px'
@@ -373,6 +394,36 @@ export default {
   width: auto;
   justify-content: center;
   margin: 2.3rem auto;
+}
+.isOn{
+  width: 28px;
+  height: 28px;
+  position: fixed;
+  z-index: 2000;
+  top: 20px;
+  left: 20px;
+  -webkit-animation: rotating 1.2s linear infinite;
+  animation: rotating 1.2s linear infinite;
+  background: url("../../static/img/1.jpg") 0 0 no-repeat;
+  background-size:100%;
+}
+@keyframes rotating {
+  from { -webkit-transform: rotate(0) }
+  to { -webkit-transform: rotate(360deg) }
+}
+@-webkit-keyframes rotating {
+  from { -webkit-transform: rotate(0) }
+  to { -webkit-transform: rotate(360deg) }
+}
+.isOff{
+  width: 28px;
+  height: 28px;
+  position: fixed;
+  z-index: 2000;
+  top: 20px;
+  left: 20px;
+  background: url("../../static/img/2.jpg") 0 -28px no-repeat;
+  background-size:100%;
 }
 </style>
 
