@@ -1,7 +1,10 @@
 <template>
   <div class="music">
-    <audio :src="musicsrc" id="Jaudio" controls="controls"  class="media-audio" autoplay="autoplay"  preload loop="loop" hidden="false"></audio>
-    <div class="icon"></div>
+    <!--<audio :src="musicsrc" id="Jaudio" controls="controls"  class="media-audio" autoplay="autoplay"  preload loop="loop" hidden="false"></audio>-->
+    <!--<div class="icon"></div>-->
+
+    <audio controls="controls"  id="bg-music" preload="auto" :src="musicsrc" loop="loop"></audio>
+    <div @click="wc">nim</div>
   </div>
 </template>
 
@@ -12,7 +15,11 @@
   Vue.component(TabBarItem.name, TabBarItem);
   export default {
     data() {
-      return {}
+      return {
+        audio:'',
+        icon:'',
+        isPlay:false
+      }
     },
     props: ['musicsrc'],
     methods: {
@@ -28,17 +35,18 @@
         this.icon.classList.remove('play');
       },
       audioAutoPlay() {
-        this.audio.play();
+        document.getElementById('Jaudio').play()
+        // this.audio.play();
         var that=this;
         //控制小喇叭的播放状态
-        this.audio.addEventListener("playing", function(){
-          that.icon.classList.add('play');
-          that.icon.classList.remove('stop');
-        });
-        this.audio.addEventListener("pause", function(){
-          that.icon.classList.add('stop');
-          that.icon.classList.remove('play');
-        });
+        // this.audio.addEventListener("playing", function(){
+        //   that.icon.classList.add('play');
+        //   that.icon.classList.remove('stop');
+        // });
+        // this.audio.addEventListener("pause", function(){
+        //   that.icon.classList.add('stop');
+        //   that.icon.classList.remove('play');
+        // });
         document.addEventListener("WeixinJSBridgeReady", function () {
           that.audio.play();
           this.icon.classList.add('play');
@@ -46,6 +54,7 @@
         }, false);
         this.icon.addEventListener("click", () => {
           if (this.audio.paused) {
+            alert(1)
             this.play()
           } else {
             this.stop()
@@ -59,12 +68,38 @@
           }
         }, false)
       },
+      wc(){
+        function musicInBrowserHandler() {
+          musicPlay(true);
+          alert(1)
+          document.body.removeEventListener('touchstart', musicInBrowserHandler);
+        }
+        document.body.addEventListener('touchstart', musicInBrowserHandler);
+
+        var audio = document.getElementById('bg-music');
+        audio.play();
+        document.addEventListener("WeixinJSBridgeReady", function () {
+          audio.play();
+        }, false);
+      },
 
     },
-    ready() {
-      this.audio = window.document.querySelector('.media-audio');
-      this.icon = window.document.querySelector('.icon');
-      this.audioAutoPlay();
+    mounted:function() {
+      this.wc()
+      document.addEventListener('DOMContentLoaded', function () {
+        function audioAutoPlay() {
+          var audio = document.getElementById('bg-music');
+          audio.play();
+          document.addEventListener("WeixinJSBridgeReady", function () {
+            audio.play();
+          }, false);
+        }
+        audioAutoPlay();
+      });
+      // this.audioAutoPlay()
+      // this.audio = window.document.querySelector('.media-audio');
+      // this.icon = window.document.querySelector('.icon');
+      // this.audioAutoPlay();
     }
   };
 </script>
