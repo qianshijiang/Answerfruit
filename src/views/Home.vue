@@ -42,7 +42,7 @@
       <div @click="changeOn" :class="isOff?'isOff':'isOn'">
 
       </div>
-      <audio id="audio" :src="require('/../../static/img/1.mp3')"></audio>
+      <audio id="audio" :src="require('../../static/img/1.mp3')"></audio>
     </div>
       <!--<audio id="audio"   controls="controls" autoplay="autoplay" preload="auto">
       <source src="/../../static/img/1.mp3" type="audio/ogg">
