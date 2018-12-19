@@ -6,7 +6,8 @@ import router from './router'
 import VueResource from 'vue-resource'
 
 Vue.use(VueResource)
-
+import '@/assets/css/style.css'
+// import '@/assets/js/gg.js'
 
 
 //vue-ydui
