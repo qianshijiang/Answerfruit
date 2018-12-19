@@ -1,5 +1,4 @@
 <template>
-
     <yd-tabbar fixed active-color="#049DFC" >
         <yd-tabbar-item title="首页" link="/" :active="this.pageTag==0" style="font-size: 10px;">
             <yd-icon name="home" slot="icon" size="1.8rem"></yd-icon>

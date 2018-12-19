@@ -38,12 +38,9 @@
         </p>
       </div>
     </div>
-    <div>
-      <div @click="changeOn" :class="isOff?'isOff':'isOn'">
-
-      </div>
-      <audio id="audio" :src="require('../../static/img/1.mp3')"></audio>
-    </div>
+    <template>
+      <bgmusic :musicsrc='musicbg'></bgmusic>
+    </template>
       <!--<audio id="audio"   controls="controls" autoplay="autoplay" preload="auto">
       <source src="/../../static/img/1.mp3" type="audio/ogg">
       <source src="../../static/img/1.mp3" type="audio/mpeg">
@@ -55,6 +52,7 @@
 
 <script>
 import FooterBar from "@/components/FooterBar.vue";
+import Bgmusic from '@/components/Bgmusic.vue'
 export default {
   name: "home",
   data(){
@@ -68,7 +66,7 @@ export default {
       anflag:true,
       imgs:0,
       imgurl:'',
-      isOff:true //控制是否自动播放
+      musicbg: "../../static/img/1.mp3",
     }
   },
   components: {
@@ -278,15 +276,6 @@ export default {
     },
   },
   mounted: function () {
-    // 自动播放音乐效果，解决微信自动播放问题
-    document.addEventListener('touchstart',this.audioAutoPlay,false);
-    document.addEventListener('WeixinJSBridgeReady', this.audioAutoPlay,false);
-    let oAudio = document.querySelector("#audio");
-    oAudio.onended = function () {//播放完毕，重新循环播放
-      oAudio.load();
-      oAudio.play();
-    }
-
     this.heights = screen.height
     document.getElementById('apps').style.height = screen.height+'px'
     document.getElementById('hh').style.paddingTop = screen.height/2-140+'px'
