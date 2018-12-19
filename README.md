@@ -19,8 +19,8 @@
    了）
 2. cd到本目录到本目录下
    录下
-3. npm ins install安装依赖包，可能很慢很慢
-4. npm run run dev
+3. npm install安装依赖包，可能很慢很慢
+4. npm run dev
 5. 打开localhost:8082(有可能(有可能会是其他端口，看控制台即可，会有Your application is running here: e: http://localhost:8080的提示)的提示)
    
    接口对接范例

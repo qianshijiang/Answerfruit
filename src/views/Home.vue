@@ -47,10 +47,11 @@
         </p>
       </div>
     </div>
-    <!--<template>-->
+    <!--<div>
       <Bgmusic :musicsrc='musicbg'></Bgmusic>
-    <!--</template>-->
-      <!--<audio id="audio"   controls="controls" autoplay="autoplay" preload="auto">
+    </div>-->
+
+    <!--<audio id="audio"   controls="controls" autoplay="autoplay" preload="auto">
       <source src="/../../static/img/1.mp3" type="audio/ogg">
       <source src="../../static/img/1.mp3" type="audio/mpeg">
       Your browser does not support the audio element.
@@ -269,21 +270,6 @@ export default {
           }
         );
     },
-    changeOn(){
-      let oAudio = document.querySelector("#audio");
-      if(this.isOff){
-        oAudio.play();//让音频文件开始播放
-      }else{
-        oAudio.pause();//让音频文件暂停播放
-      }
-      this.isOff = !this.isOff;
-    },
-    audioAutoPlay() {
-      let audio = document.getElementById('audio');
-      this.isOff = false;
-      audio.play();
-      document.removeEventListener('touchstart',this.audioAutoPlay);
-    },
     ndy() {
       const util = {
         math: {
@@ -307,8 +293,6 @@ export default {
           }
         }
       };
-
-
 
 
       /**
@@ -519,10 +503,6 @@ export default {
           });
         }
       }
-
-
-
-
 
       /**
        * Control animations of an element's children
@@ -743,16 +723,16 @@ export default {
       animator.animate(document.querySelector('#selectEffect').value);
 
 
-// Listen to controls
-      document.querySelector('#selectEffect').addEventListener('change', function(e) {
+     // Listen to controls
+      /*document.querySelector('#selectEffect').addEventListener('change', function(e) {
         animator.animate(this.value);
       });
       document.querySelector('.animate').addEventListener('click', function(e) {
         animator.animate(document.querySelector('#selectEffect').value);
-      });
+      });*/
 
 
-// Animate on enter key
+      // Animate on enter key
       animationContainer.addEventListener('keydown', function(e) {
         switch(e.keyCode) {
           case 13:
@@ -766,13 +746,13 @@ export default {
 
 
 
-// Other
-      document.querySelector('.dismiss').addEventListener('click', function(e) {
+      // Other
+      /*document.querySelector('.dismiss').addEventListener('click', function(e) {
         this.closest('.alert').classList.add('close');
         config.completed.comeBack = true;
         localStorage['funkyLetters:config'] = JSON.stringify(config);
-      });
-    }
+      });*/
+    },
   },
   mounted: function () {
     this.gostate()
@@ -783,14 +763,7 @@ export default {
       this.imgs = parseInt(9*Math.random())
       this.imgurl = '../../static/img/'+this.imgs+'.jpg'
       // this.getData()
-
-
-
-
-
-    })
-
-
+    });
   }
 };
 </script>
@@ -891,36 +864,6 @@ export default {
   width: auto;
   justify-content: center;
   margin: 2.3rem auto;
-}
-.isOn{
-  width: 28px;
-  height: 28px;
-  position: fixed;
-  z-index: 2000;
-  top: 20px;
-  left: 20px;
-  -webkit-animation: rotating 1.2s linear infinite;
-  animation: rotating 1.2s linear infinite;
-  background: url("../../static/img/1.jpg") 0 0 no-repeat;
-  background-size:100%;
-}
-@keyframes rotating {
-  from { -webkit-transform: rotate(0) }
-  to { -webkit-transform: rotate(360deg) }
-}
-@-webkit-keyframes rotating {
-  from { -webkit-transform: rotate(0) }
-  to { -webkit-transform: rotate(360deg) }
-}
-.isOff{
-  width: 28px;
-  height: 28px;
-  position: fixed;
-  z-index: 2000;
-  top: 20px;
-  left: 20px;
-  background: url("../../static/img/2.jpg") 0 -28px no-repeat;
-  background-size:100%;
 }
 </style>
 
