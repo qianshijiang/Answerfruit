@@ -59,7 +59,6 @@
           }
         }, false)
       },
-
     },
     ready() {
       this.audio = window.document.querySelector('.media-audio');
