@@ -179,7 +179,8 @@ body {
 }
 @keyframes hop {
   to {
-    transform: translateY(-0.6em);
+    transform: translateY(0em);
+    /*transform: translateY(-0.6em);*/
   }
 }
 .anim[data-effect=wave] {

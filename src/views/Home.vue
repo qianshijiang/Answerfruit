@@ -16,6 +16,7 @@
               <div id="controls" style="opacity: 0;">
                 <select  name="selectEffect" id="selectEffect" class="control">
                   <option value="hop">Hop in</option>
+                  <!--<option value="slide">Slide in</option>-->
                 </select>
                 <div class="tip tip-effect">
                 </div>
@@ -102,7 +103,7 @@ export default {
     gostate(){
       let url = document.location.toString()
       // alert(url)
-      url = 'https://www.xunhuai.net/Index/Indexpage?QrcodrId=0089E3A98C89D07FD2FC2ABE6A6A94C2&ShopId=B141ED0F02742108A6DA5F1606587092&AnsBookNum=53#/'
+      //url = 'https://www.xunhuai.net/Index/Indexpage?QrcodrId=0089E3A98C89D07FD2FC2ABE6A6A94C2&ShopId=B141ED0F02742108A6DA5F1606587092&AnsBookNum=53#/'
       console.log(url)
       let arrUrl = url.split('?')
       let paramt = []
@@ -281,7 +282,7 @@ export default {
             return {x: r * Math.cos(alpha), y: r * Math.sin(alpha)};
           }
         },
-
+        //设置字体颜色 rgb格式
         color: {
           random: (opts = {}) => {
             let h, s, l;
@@ -290,7 +291,7 @@ export default {
             s = opts.saturation || Math.floor(Math.random() * 101);
             l = opts.lightness || Math.floor(Math.random() * 101);
 
-            return `hsl(${h}, ${s}%, ${l}%)`;
+            return `hsl(${255}, ${255}%, ${255}%)`;
           }
         }
       };
@@ -561,6 +562,7 @@ export default {
 
 
         /**
+         * 设置单个字上下移动
          * Distribute animation delays
          * @param  {Object} opts           options
          * @param  {Object} opts.shift     shift each next item this much milliseconds
@@ -634,7 +636,7 @@ export default {
           delays: {shift: 100}
         },
         slide: {
-          delays: {shift: 100}
+          delays: {shift: 160}
         },
         swivel: {
           delays: {shift: 100, random: true}
@@ -649,7 +651,7 @@ export default {
           delays: {shift: 120}
         },
         hop: {
-          delays: {shift: 140}
+          delays: {shift: 140} //140
         },
         converge: {
           delays: {shift: false}
