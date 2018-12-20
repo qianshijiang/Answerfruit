@@ -20,13 +20,14 @@ body {
 
 .anim-text {
   font: 4em "Baloo Chettan", Helvetica Neueu, HelveticaNeueu, Helvetica, Arial;
-  white-space: nowrap;
+  white-space: normal;
   min-width: 1em;
   min-height: 1.2em;
   /*margin-top: 35px;*/
   /*border-bottom: 1px solid transparent;*/
   /*caret-color: #f20dcc;*/
   text-align: center;
+  padding: 0 10px;
 }
 .anim-text:empty, .anim-text:focus {
   border-bottom-color: #f20dcc;

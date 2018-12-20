@@ -102,7 +102,7 @@ export default {
     gostate(){
       let url = document.location.toString()
       // alert(url)
-      // url = 'https://www.xunhuai.net/Index/Indexpage?QrcodrId=0089E3A98C89D07FD2FC2ABE6A6A94C2&ShopId=B141ED0F02742108A6DA5F1606587092&AnsBookNum=53#/'
+      url = 'https://www.xunhuai.net/Index/Indexpage?QrcodrId=0089E3A98C89D07FD2FC2ABE6A6A94C2&ShopId=B141ED0F02742108A6DA5F1606587092&AnsBookNum=53#/'
       console.log(url)
       let arrUrl = url.split('?')
       let paramt = []
