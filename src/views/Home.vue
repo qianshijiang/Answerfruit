@@ -677,10 +677,6 @@ export default {
         },
       };
 
-
-
-
-
       const animationContainer = document.querySelector('.anim-text');
       animationContainer.innerHTML=this.answer.content
       let config = localStorage['funkyLetters:config'];
@@ -692,7 +688,7 @@ export default {
         };
       }
 
-// Tips
+     // Tips
       if(config.completed.changeEffect) {
         document.querySelector('.tip-effect').classList.add('hide');
       } else {
@@ -744,9 +740,6 @@ export default {
         }
       });
 
-
-
-
       // Other
       /*document.querySelector('.dismiss').addEventListener('click', function(e) {
         this.closest('.alert').classList.add('close');
@@ -760,7 +753,7 @@ export default {
       this.heights = screen.height
       document.getElementById('apps').style.height = screen.height+'px'
       document.getElementById('hh').style.paddingTop = screen.height/2-140+'px'
-      this.imgs = parseInt(12*Math.random())
+      this.imgs = parseInt(Math.floor(Math.random() * 12))
       this.imgurl = '../../static/img/'+this.imgs+'.jpg'
       this.gostate()
       // this.getData()
