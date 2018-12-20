@@ -760,7 +760,7 @@ export default {
       this.heights = screen.height
       document.getElementById('apps').style.height = screen.height+'px'
       document.getElementById('hh').style.paddingTop = screen.height/2-140+'px'
-      this.imgs = parseInt(9*Math.random())
+      this.imgs = parseInt(12*Math.random())
       this.imgurl = '../../static/img/'+this.imgs+'.jpg'
       // this.getData()
     });

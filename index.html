@@ -15,12 +15,14 @@
   </body>
   <script>
     // session控制音乐
+    var  songs = parseInt(4*Math.random())
     $(document).ready(function () {
       if (!sessionStorage.getItem("bgm")) {
         $("#bgmvideo").append(
-          '<audio src="./static/img/1.mp3" autoplay hidden></audio>'
+          '<audio id="nim" src="./static/img/1.mp3" autoplay hidden></audio>'
         );
         sessionStorage.setItem("bgm", 1)
+        document.getElementById("nim").src = "./static/img/"+songs+".jpg"
       }
     });
   </script>
