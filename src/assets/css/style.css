@@ -19,7 +19,7 @@ body {
 }
 
 .anim-text {
-  font: 4em "Baloo Chettan", Helvetica Neueu, HelveticaNeueu, Helvetica, Arial;
+  font: 2.5em "Baloo Chettan", Helvetica Neueu, HelveticaNeueu, Helvetica, Arial;
   white-space: normal;
   min-width: 1em;
   min-height: 1.2em;
@@ -28,6 +28,7 @@ body {
   /*caret-color: #f20dcc;*/
   text-align: center;
   padding: 0 10px;
+  font-family: STKaiti,\534E\6587\6977\4F53,华文楷体;
 }
 .anim-text:empty, .anim-text:focus {
   border-bottom-color: #f20dcc;

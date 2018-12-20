@@ -23,15 +23,15 @@
               </div>
             </div>
           </div>
-          <div v-if="anflag == false" style="display: flex;flex-direction: column;justify-content: center;align-items: center">
-            <p style="text-align: left;color: #fff;font-size: 22px;line-height: 36px;">
+          <div v-if="anflag == false" style="display: flex;flex-direction: column;justify-content: center;align-items: center;font-family: STKaiti,\534E\6587\6977\4F53,华文楷体;">
+            <p style="text-align: left;color: #fff;font-size: 20px;line-height: 36px;">
               答案二维码
               <!--店铺：{{shorp.name}}-->
             </p>
-            <p style="text-align: left;color: #fff;font-size: 22px;line-height: 36px;">
+            <p style="text-align: left;color: #fff;font-size: 20px;line-height: 36px;font-family: STKaiti,\534E\6587\6977\4F53,华文楷体;">
             二维码已失效
             </p>
-            <p style="text-align: left;color: #fff;font-size: 22px;line-height: 36px;">
+            <p style="text-align: left;color: #fff;font-size: 20px;line-height: 36px;">
               订购热线：{{shorp.orderPhone}}
             </p>
           </div>
@@ -40,10 +40,10 @@
       </div>
       <div style="display: flex;flex-direction: column;align-items: center;margin-top: 60px;" v-show="errorpage == false" >
         <img style="height: 160px;width: 160px;" src="../assets/sb.png"/>
-        <p style="text-align: center;margin-top: 10px;font-size: 18px;color:#999;">
+        <p style="text-align: center;margin-top: 10px;font-size: 18px;color:#999;font-family: STKaiti,\534E\6587\6977\4F53,华文楷体;">
           数据加载失败
         </p>
-        <p style="text-align: center;margin-top: 10px;font-size: 18px;color:#999;">
+        <p style="text-align: center;margin-top: 10px;font-size: 18px;color:#999;font-family: STKaiti,\534E\6587\6977\4F53,华文楷体;">
           网络或服务器延迟，请稍后再试
         </p>
       </div>
@@ -103,7 +103,7 @@ export default {
     gostate(){
       let url = document.location.toString()
       // alert(url)
-      //url = 'https://www.xunhuai.net/Index/Indexpage?QrcodrId=0089E3A98C89D07FD2FC2ABE6A6A94C2&ShopId=B141ED0F02742108A6DA5F1606587092&AnsBookNum=53#/'
+      url = 'https://www.xunhuai.net/Index/Indexpage?QrcodrId=22B5DA266D4F54F3E480936E57E3DE1A&ShopId=B141ED0F02742108A6DA5F1606587092&AnsBookNum=251#/'
       console.log(url)
       let arrUrl = url.split('?')
       let paramt = []
