@@ -754,9 +754,9 @@ export default {
       });*/
     },
     audioAutoPlay(id){
-      let audio = document.getElementById(id);
-        this.songSrc = "../../static/img/"+this.songs+".mp3";
+        let audio = document.getElementById(id);
         play = function(){
+          this.songSrc = "../../static/img/"+this.songs+".mp3";
           audio.play();
           document.removeEventListener('touchstart',play, false);
         };
