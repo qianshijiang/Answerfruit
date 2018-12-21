@@ -51,14 +51,7 @@
     <!--<div>
       <Bgmusic :musicsrc='musicbg'></Bgmusic>
     </div>-->
-    <div>
-      <audio id="Jaudio" :src="songSrc" autoplay hidden></audio>
-    </div>
-    <!--<audio id="audio"   controls="controls" autoplay="autoplay" preload="auto">
-      <source src="/../../static/img/1.mp3" type="audio/ogg">
-      <source src="../../static/img/1.mp3" type="audio/mpeg">
-      Your browser does not support the audio element.
-    </audio>-->
+     <!-- <audio id="Jaudio" :src="songSrc" autoplay hidden></audio>-->
   </div>
 
 </template>
@@ -753,22 +746,6 @@ export default {
         localStorage['funkyLetters:config'] = JSON.stringify(config);
       });*/
     },
-    audioAutoPlay(id){
-        let audio = document.getElementById(id);
-        this.songSrc = "../../static/img/"+this.songs+".mp3";
-        play = function(){
-          audio.play();
-          //document.removeEventListener('touchstart',play, false);
-        };
-         audio.play();
-      document.addEventListener('WeixinJSBridgeReady', function () {//微信
-          play();
-      }, false);
-      document.addEventListener('YixinJSBridgeReady', function() {//易信
-          play();
-      }, false);
-      document.addEventListener("touchstart",play, false);
-    },
   },
   mounted: function () {
     this.$nextTick(function () {
@@ -780,7 +757,6 @@ export default {
       this.gostate()
       // this.getData()
     });
-    this.audioAutoPlay('Jaudio');
   }
 };
 </script>
