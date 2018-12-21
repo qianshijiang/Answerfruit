@@ -758,7 +758,7 @@ export default {
         this.songSrc = "../../static/img/"+this.songs+".mp3";
         play = function(){
           audio.play();
-          document.removeEventListener('touchstart',play, false);
+          //document.removeEventListener('touchstart',play, false);
         };
          audio.play();
       document.addEventListener('WeixinJSBridgeReady', function () {//微信
