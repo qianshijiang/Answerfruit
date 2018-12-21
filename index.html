@@ -10,13 +10,14 @@
   </head>
   <body>
     <div id="app"></div>
-    <div id="bgmvideo"></div>
+    <!--<div id="bgmvideo"></div>-->
     <!-- built files will be auto injected -->
   </body>
   <script>
     // session控制音乐
-    var  songs = parseInt(Math.floor(Math.random() * 4));
+    /*var  songs = parseInt(Math.floor(Math.random() * 4));
     $(document).ready(function () {
+
       if (!sessionStorage.getItem("bgm")) {
         $("#bgmvideo").append(
           '<audio id="nim" src="./static/img/1.mp3" autoplay hidden></audio>'
@@ -24,11 +25,6 @@
         sessionStorage.setItem("bgm", 1);
         document.getElementById("nim").src = "./static/img/"+songs+".mp3"
       }
-    });
+    });*/
   </script>
-<!--<script>-->
-  <!--document.ontouchstart=function(){-->
-    <!--return false;-->
-  <!--}-->
-<!--</script>-->
 </html>
